@@ -31,4 +31,5 @@ func routes(router *httprouter.Router) {
 	// что следует выполнять при входящих запросах по указанному адресу
 	router.GET("/", controller.StartPage)
 	router.GET("/users", controller.GetUsers)
+	router.POST("/user/add", controller.AddUser)
 }
