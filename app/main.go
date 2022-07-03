@@ -32,4 +32,5 @@ func routes(router *httprouter.Router) {
 	router.GET("/", controller.StartPage)
 	router.GET("/users", controller.GetUsers)
 	router.POST("/user/add", controller.AddUser)
+	router.DELETE("/user/delete/:userId", controller.DeleteUser)
 }

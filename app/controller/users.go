@@ -60,3 +60,24 @@ func AddUser(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 }
+
+func DeleteUser(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	userId := p.ByName("userId")
+	user, err := model.GetUserById(userId)
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+
+	err = user.DeleteUser()
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+
+	err = json.NewEncoder(rw).Encode("Пользователь был успешно удален")
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+}
