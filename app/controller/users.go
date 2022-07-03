@@ -81,3 +81,30 @@ func DeleteUser(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 }
+
+func UpdateUser(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	userId := p.ByName("userId")
+	name := r.FormValue("Name")
+	surname := r.FormValue("Surname")
+
+	user, err := model.GetUserById(userId)
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+
+	user.Name = name
+	user.Surname = surname
+
+	err = user.UpdateUser()
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+
+	err = json.NewEncoder(rw).Encode("Пользователь был успешно изменен")
+	if err != nil {
+		http.Error(rw, err.Error(), 400)
+		return
+	}
+}

@@ -56,3 +56,9 @@ func (u *User) DeleteUser() (err error) {
 	_, err = server.Db.Exec(query, u.Id)
 	return
 }
+
+func (u *User) UpdateUser() (err error) {
+	query := "UPDATE users SET name = ?, surname = ? WHERE id = ?"
+	_, err = server.Db.Exec(query, u.Name, u.Surname, u.Id)
+	return
+}
